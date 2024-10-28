@@ -1,29 +1,33 @@
-import localFont from "next/font/local";
+import { Inter } from "next/font/google";
+import { Slide, ToastContainer } from "react-toastify";
+import SessionProviderWrapper from "./_components/SessionProviderWrapper";
+import "react-toastify/dist/ReactToastify.css";
 import "./globals.css";
+import './toastStyle.css'
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "FreshBite Haven",
-  description: "Generated FreshBite Haven by Md Rasel",
+  description: "FreshBite Haven",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={inter.className}>
+        <SessionProviderWrapper>
+          <main>{children}</main>
+        </SessionProviderWrapper>
+
+        <ToastContainer
+          position="bottom-center"
+          hideProgressBar
+          transition={Slide}
+          autoClose={1500}
+          theme="light"
+          className="toast-container"
+        />
       </body>
     </html>
   );

@@ -1,0 +1,22 @@
+/* toastStyles.css */
+.toast-container {
+    width: 70%; /* Default width for mobile */
+    max-width: 800px; /* Optional max width */
+    left: 15%; /* Center for mobile */
+    min-height: 40px; /* Minimum height */
+    position: fixed;
+    bottom: 10px; /* Adjust as needed */
+    transition: all 0.3s ease; /* Smooth transition */
+    transform: translateX(0);
+  }
+  
+  @media (min-width: 640px) {
+    .toast-container {
+        left: 50%; /* Center horizontally */
+        transform: translateX(-50%); /* Adjust to truly center */
+        width: auto;
+        padding: 0px  20px;
+
+    }
+  }
+  

@@ -1,0 +1,7 @@
+-- AlterTable
+ALTER TABLE "products" ADD COLUMN     "isBestSelling" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "isFeatured" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "isNewArrival" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "isOnOffer" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "status" TEXT NOT NULL DEFAULT 'active',
+ADD COLUMN     "stock" INTEGER NOT NULL DEFAULT 0;

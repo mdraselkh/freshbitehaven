@@ -1,0 +1,267 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// model User {
+//   id        Int       @id @default(autoincrement())
+//   fullname  String
+//   phone     String    @unique
+//   password  String
+//   role      String    @default("admin")
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+// }
+
+model User {
+  id            Int       @id @default(autoincrement())
+  fullname      String
+  email         String?   @unique
+  image         String? // Optional: for storing user profile images
+  phone         String?   @unique // Optional: make phone unique
+  emailVerified DateTime? @default(now())
+  password      String? // Optional: for users who register with a password
+  role          String    @default("admin") // Default role changed to "user"
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  accounts Account[] // One-to-many relationship with Account
+  sessions Session[] // One-to-many relationship with Session
+}
+
+model Account {
+  id                Int    @id @default(autoincrement())
+  userId            Int
+  provider          String
+  providerAccountId String
+  user              User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId]) // Ensure this unique constraint
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       Int
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Customer {
+  id       Int          @id @default(autoincrement())
+  phone    String       @unique
+  fullname String
+  address  String
+  city     String
+  orders   OrderTable[]
+  Payment  Payment[]
+
+  @@map("customers")
+}
+
+model Category {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  image       String?
+  createdAt   DateTime     @default(now())
+  subcategories SubCategory[] @relation("CategorySubcategories") // Relation to SubCategory
+  products    Products[]   @relation("CategoryProducts") // Relation to Products
+
+  @@map("categories")
+}
+
+model SubCategory {
+  id          Int          @id @default(autoincrement())
+  name        String
+  image       String?
+  categoryId  Int          // Foreign key for the category
+  category    Category     @relation("CategorySubcategories", fields: [categoryId], references: [id], onDelete: Cascade) // Establish relation to Category
+  products    Products[]   @relation("SubcategoryProducts")
+  @@map("sub_categories")
+}
+
+model Products {
+  id            Int          @id @default(autoincrement())
+  image         String
+  categoryId    Int          // Foreign key for the category
+  subcategoryId Int?         // Foreign key for the subcategory (optional if not all products have subcategories)
+  name          String
+  localName     String?
+  description   String?
+  sizes         Size[]       // One-to-many relation with Size model
+
+  // New fields for product management
+  stock         Int          @default(0)         // Track available stock for the product
+  status        String        @default("active")  // Status field for product ("active" or "deactivated")
+
+  // Fields for product types
+  isBestSelling Boolean      @default(false)     // Flag for Best Selling products
+  isFeatured    Boolean      @default(false)     // Flag for Featured products
+  isNewArrival  Boolean      @default(false)     // Flag for New Arrival products
+  isOnOffer     Boolean      @default(false)     // Flag for Offers/Deals products
+
+  category      Category     @relation("CategoryProducts", fields: [categoryId], references: [id], onDelete: Cascade)
+  subcategory   SubCategory? @relation("SubcategoryProducts", fields: [subcategoryId], references: [id], onDelete: Cascade)
+
+  @@map("products")
+}
+
+
+
+model Size {
+  id            Int          @id @default(autoincrement())
+  weight        String
+  price         Float
+  discountPrice Float?
+  productId     Int
+  product       Products     @relation(fields: [productId], references: [id], onDelete: Cascade) // Establish relation to Products
+
+  @@map("product_sizes")
+}
+
+
+
+
+model ShippingCost {
+  id         Int          @id @default(autoincrement())
+  city       String       @unique
+  cost       Float
+  OrderTable OrderTable[]
+
+  @@map("shipping_costs")
+
+}
+
+model OrderItem {
+  id         Int        @id @default(autoincrement())
+  order      OrderTable @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  orderId    Int
+  productName String
+  weight      String
+  price       Float
+  quantity   Int
+  totalPrice Float
+
+  @@map("order_items")
+
+}
+
+model OrderTable {
+  id             Int         @id @default(autoincrement())
+  customer Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  customerId     Int
+  ShippingCost ShippingCost @relation(fields: [shippingCostId], references: [id])
+  shippingCostId Int
+  discount       Float?
+  orderStatus    Int         @default(0)
+  totalAmount    Float
+  orderNote      String?
+  Payment      Payment?     @relation(fields: [paymentId], references: [id])
+  paymentId      Int?
+  orderItems     OrderItem[]
+  createdAt      DateTime    @default(now())
+
+  @@map("order_table")
+
+}
+
+model Payment {
+  id         Int          @id @default(autoincrement())
+  customer   Customer?     @relation(fields: [customerId], references: [id])
+  customerId Int?
+  amount     Float
+  method     String
+  status     String
+  createdAt  DateTime     @default(now())
+  orders    OrderTable[]
+
+  @@map("payments")
+
+}
+
+model ContactForm {
+  id        Int      @id @default(autoincrement())
+  name      String
+  phone     String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
+
+model HomeSection {
+  id      Int      @id @default(autoincrement())
+  hotline String   @unique
+  email   String   @unique
+  logo    String   
+
+  @@map("home_data")
+}
+
+model PosterImage {
+  id      Int      @id @default(autoincrement()) 
+  images   String 
+
+  @@map("posters")
+}
+
+model PopupImage {
+  id        Int      @id @default(autoincrement())
+  image     String   
+  createdAt DateTime @default(now())
+  @@map("popup_img")
+}
+
+model FooterSection {
+  id              Int      @id @default(autoincrement())
+  hotline         String   @unique
+  title           String   
+  logo            String   
+  address         String
+  whatsapp        String   @unique
+  website         String
+  email           String?
+  branchName      String?
+  branchAddress    String?
+  locationSrc     String
+
+  @@map("footer_data")
+}
+
+model BlogPost {
+  id           Int      @id @default(autoincrement()) // Unique identifier
+  title        String   // Blog title
+  slug         String   @unique // Blog slug (unique URL identifier)
+  imageUrl     String   // Image URL or file path for the blog cover image
+  startContent String   // Introductory content of the blog
+  middleContent String  // Middle content of the blog
+  endContent   String   // Ending or conclusion content of the blog
+  published    Boolean  @default(false) // Blog post publish status
+  createdAt    DateTime @default(now()) // Timestamp when the blog post was created
+  updatedAt    DateTime @updatedAt
+  @@map("blog_data")
+}
+
+model Promo {
+  id                Int       @id @default(autoincrement())
+  code              String    @unique
+  discountPercentage Float
+  validFrom         DateTime?
+  validUntil        DateTime?
+  isActive          Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@map("promos")
+}
