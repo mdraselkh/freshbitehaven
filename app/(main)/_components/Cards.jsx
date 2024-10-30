@@ -13,7 +13,7 @@ const Cards = ({ image, title }) => {
 
   return (
     <button
-      className='border bg-white rounded-lg overflow-hidden shadow-md flex flex-col items-center justify-center transform transition w-44 h-44 md:h-52 duration-300 hover:scale-105'
+      className='border bg-white rounded-lg overflow-hidden shadow-md flex flex-col items-center justify-center transform transition w-40 h-40 md:h-52 duration-300 hover:scale-105'
       onClick={() => handleItemClick(title)}
     >
       <div className=' w-full '>

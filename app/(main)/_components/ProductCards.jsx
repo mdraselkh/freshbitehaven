@@ -122,7 +122,7 @@ const ProductCards = ({ product }) => {
   };
 
   return (
-    <div className="overflow-hidden shadow w-[195px] md:w-[240px] lg:w-[248px] border-2 hover:shadow-2xl hover:transform hover:transition-transform hover:duration-300">
+    <div className="overflow-hidden shadow  md:w-[240px] lg:w-[248px] border-2 hover:shadow-2xl hover:transform hover:transition-transform hover:duration-300">
       <div className="relative group">
         {product.sizes[0].discountPrice && (
           <div className="absolute top-1 left-1 bg-red-100 text-white text-xs sm:text-xs px-2 py-1 rounded z-10">
@@ -139,7 +139,7 @@ const ProductCards = ({ product }) => {
           alt={product.name}
           width={300}
           height={200}
-          className="object-fit h-[195px] md:h-[240px] lg:h-[248px] w-[195px] md:w-[240px] lg:w-[248px] duration-300 ease-in-out transition-transform transform p-2 z-0"
+          className="object-fit h-[195px] md:h-[240px] lg:h-[248px]  md:w-[240px] lg:w-[248px] duration-300 ease-in-out transition-transform transform p-2 z-0"
         />
         <Link
           href={`/product-category/${path(product.category.name)}${
@@ -151,7 +151,7 @@ const ProductCards = ({ product }) => {
           </div>
         </Link>
       </div>
-      <div className="sm:p-3 px-3 py-2 lg:w-[248px] md:w-[240px] w-[195px]">
+      <div className="sm:p-3 px-3 py-2 lg:w-[248px] md:w-[240px]">
         <div className="h-[35px]">
           <h3 className="text-xs md:text-base font-semibold text-gray-800 ">
             {product.name} {product.sizes[0].weight}

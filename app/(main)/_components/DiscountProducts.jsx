@@ -91,7 +91,7 @@ const DiscountProducts = () => {
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 gap-3 lg:gap-4 xl:gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 gap-2 lg:gap-4 xl:gap-6">
             {currentItems.length > 0 ? (
               currentItems.map((product) => (
                 <ProductCards key={product.id} product={product} />

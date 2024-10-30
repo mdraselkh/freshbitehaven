@@ -189,7 +189,7 @@ const Shop = () => {
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-3 lg:gap-10 xl:gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-2 lg:gap-10 xl:gap-8">
             {currentItems.length > 0 ? (
               currentItems.map((product) => (
                 <ProductCards key={product.id} product={product} />

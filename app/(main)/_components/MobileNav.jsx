@@ -184,18 +184,18 @@ const MobileNav = () => {
       <nav className="w-full top-0 left-0 sticky z-40">
         {/* Top Nav */}
 
-        <div className="w-full bg-[#f7bc63] py-1">
+        <div className="w-full bg-[#fceeda] py-1">
           <div className=" flex items-center justify-center px-3">
-            <div className="font-medium text-[10px] md:text-xs text-center text-gray-50">
-            {homeData && <p>Hotline: {homeData.hotline}</p>}
+            <div className="font-medium text-[10px] md:text-xs text-center text-gray-900">
+            {homeData && <p>Hotline {homeData.hotline}</p>}
             </div>
           </div>
         </div>
         {/* Bottom Nav */}
-        <div className="w-full py-[6px] bg-slate-200">
+        <div className="w-full py-[6px] bg-[#7d9626]">
           <div className="flex items-center justify-between px-3 gap-4">
             <button className="cursor-pointer" onClick={toggleDrawer}>
-              <CgMenuRight size={24} className="text-gray-700" />
+              <CgMenuRight size={24} className="text-slate-200" />
             </button>
             <Link href="/" className="ml-8">
               {homeData && homeData.logo && (
@@ -213,30 +213,30 @@ const MobileNav = () => {
                 className="relative flex gap-2 items-center justify-center cursor-pointer"
                 onClick={() => setIsCartOpen(!isCartOpen)}
               >
-                <LuShoppingCart className="text-gray-700 hover:text-gray-500 text-2xl" />
+                <LuShoppingCart className="text-slate-200 hover:text-slate-400 text-2xl" />
                 <span className="absolute -top-[1px] -right-[2px] flex items-center justify-center w-3 h-3 bg-[#fcb74f] text-white text-[8px] font-semibold rounded-full p-[5px]">
                   {cartCount}
                 </span>
               </button>
-              <span className="flex items-center text-[#3a4610] justify-center lg:ml-1 xl:ml-3 text-sm font-semibold">
-                <TbCurrencyTaka className="text-[#7d9626] xl:text-xl text-lg" />
+              <span className="flex items-center text-slate-200 justify-center lg:ml-1 xl:ml-3 text-sm font-semibold">
+                <TbCurrencyTaka className="text-slate-200 xl:text-xl text-lg" />
                 {totalPrice.toLocaleString()}
               </span>
 
               {/* Search Button */}
               <button
-                className="p-[2px] border border-[#7d9626] ml-2"
+                className="p-[2px] border border-slate-200 ml-2"
                 onClick={() => setIsSearchOpen(!isSearchOpen)} // Toggle search field visibility
               >
                 {isSearchOpen ? (
                   <MdOutlineSearchOff
                     size={15}
-                    className="text-gray-900 hover:text-gray-700 font-semibold"
+                    className="text-slate-200 hover:text-slate-400 font-semibold"
                   />
                 ) : (
                   <MdOutlineSearch
                     size={15}
-                    className="text-gray-900 hover:text-gray-700 font-semibold"
+                    className="text-slate-200 hover:text-slate-400 font-semibold"
                   />
                 )}
               </button>
@@ -312,8 +312,8 @@ const MobileNav = () => {
                   : "text-gray-600"
               }`}
             >
-              <span className="flex items-center justify-center space-x-2">
-                <CgMenuGridR className="text-xl" />
+              <span className="flex items-center justify-center space-x-1 sm:space-x-2">
+                <CgMenuGridR className="sm:text-xl text-lg" />
                 Main Menu
               </span>
             </button>
@@ -325,8 +325,8 @@ const MobileNav = () => {
                   : "text-gray-600"
               }`}
             >
-              <span className="flex items-center space-x-2 justify-center">
-                <TbCategoryPlus className="text-xl" />
+              <span className="flex items-center space-x-1 sm:space-x-2 justify-center">
+                <TbCategoryPlus className="sm:text-xl text-lg" />
                 Category Menu
               </span>
             </button>

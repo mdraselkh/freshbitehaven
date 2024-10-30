@@ -21,7 +21,7 @@ const Pagination = ({
 
   return (
     <div className='mt-10 flex flex-row items-center justify-between border-t border-gray-200 py-3'>
-      <div className='max-w-28 h-[38px] mt-4 md:mt-0 flex items-center p-1 bg-gray-300 hover:bg-gray-400 focus:outline-none'>
+      <div className='max-w-28 h-[38px] md:mt-0 flex items-center p-1 bg-gray-300 hover:bg-gray-400 focus:outline-none'>
         <label htmlFor='itemsPerPage' className='block text-xs md:text-sm font-medium text-gray-800 px-1'>
           Show
         </label>

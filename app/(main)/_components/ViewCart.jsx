@@ -340,12 +340,12 @@ const ViewCart = () => {
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                   placeholder="Gift card or discount code"
-                  className="px-4 py-2 border border-gray-300"
+                  className="md:px-4 md:py-2 px-3 py-2 border border-gray-300"
                 />
 
                 <button
                   type="submit"
-                  className="ml-2 bg-gray-400 text-white px-4 py-2 focus:outline-none font-semibold"
+                  className="ml-1 md:ml-2 text-sm md:text-base bg-gray-400 text-white px-3 py-2 md:px-4 md:py-2 focus:outline-none font-semibold"
                 >
                   Apply
                 </button>
